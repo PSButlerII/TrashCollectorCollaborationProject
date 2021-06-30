@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{# This top line allows this template to utilizing the styling and layout from the base. All your templates should do the same. #}
+
+{% block title %} Customer Home {% endblock %}
+
+{% block header %} Customer Home {% endblock %}
+
+{% block content %}
+  {% if user.is_authenticated %}
+    Hello Customer {{ user.username }}!
+  {% else %}
+    <p>You are at the customer index, but you are not logged in.</p>
+    <a href="{% url 'login' %}">Log In</a>
+    <a href="{% url 'accounts:register' %}">Sign Up</a>
+  {% endif %}
+{% endblock %}
