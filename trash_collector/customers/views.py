@@ -12,7 +12,7 @@ def index(request):
     # The following line will get the logged-in in user (if there is one) within any view function
     user = request.user
     # It will be necessary while creating a customer/employee to assign the logged-in user as the user foreign key
-    # This will allow you to later query the database using the logged-in user,
+    # This will allow you to later query the dat abase using the logged-in user,
     # thereby finding the customer/employee profile that matches with the logged-in user.
     print(user)
     return render(request, 'customers/index.html')
@@ -23,11 +23,11 @@ def customer_signup(request):
     form = customer_forms(request.POST)
     if form.is_valid():
         form.save()
-        return redirect('/customers/')
+        return redirect('/custome rs/')
     context = {
         'form': form
     }
-    return render(request, "customers/customer_signup_information.html", context)
+    return render(request, "customers/         customer_signup_information.html", context)
 
 
 def customer_account_info(request, customer_pk):
