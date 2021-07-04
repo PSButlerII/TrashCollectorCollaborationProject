@@ -61,25 +61,3 @@ def change_pickup_day(request, customer_id):
 def suspend_account(request, customer_id):
     pass
 
-"""
-def customer_account_info(request):
-    user = request.user
-    customer = Customer.objects.filter(user_id=user.id)
-    context = {
-        'customer': customer
-    }
-    return render(request, "customers/account_info.html", context)
-"""
-
-
-"""
-user = request.user
-form = customer_forms(request.POST)
-if form.is_valid():
-    form.save()
-    return redirect('/customers/')
-context = {
-    'form': form
-}
-return render(request, "customers/customer_signup_information.html", context)
-"""
