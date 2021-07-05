@@ -34,6 +34,16 @@ def customer_signup(request):
         return render(request, 'customers/customer_signup.html')
 
 
+def customer_validation(request):
+    user = request.user
+    customer = Customer.objects.filter(user_id=user.id)
+    context = {
+        'customer': customer,
+        'user': user
+    }
+    return render(request, "customers/base.html", context)
+
+
 def customer_account_info(request):
     user = request.user
     customer = Customer.objects.get(user_id=user.id)
@@ -50,13 +60,16 @@ def customer_account_info(request):
 
 def change_pickup_day(request):
     user = request.user
-    customer = Customer.objects.get(user_id=user.id)
+    customer = Customer.objects.filter(user_id=user.id)
+    if not customer.exists():
+        return redirect("/customers/customer")
+    customer_info = Customer.objects.get(user_id=user.id)
     form = change_pickup_form(request.POST, instance=customer)
     if form.is_valid():
         form.save()
         return redirect('/customers/')
     context = {
         'form': form,
-        'customer': customer
+        'customer': customer_info
     }
     return render(request, "customers/customer_change_pickup_day.html", context)
