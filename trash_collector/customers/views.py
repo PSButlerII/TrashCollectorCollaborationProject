@@ -31,7 +31,7 @@ def customer_signup(request):
 
         return redirect('/customers/')
     else:
-        return render(request, 'customers/customer_signup_information.html')
+        return render(request, 'customers/customer_signup.html')
 
 
 def customer_account_info(request):
