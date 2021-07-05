@@ -8,20 +8,20 @@
 {% block content %}
         <form action="{%url 'customers:change_pickup_day' %}" method="POST">
             {% csrf_token %}
-            <table>
+            <table class="table table-hover">
                 <tr>
-                    <th>Name</th>
-                    <td><input type="text" name="name" Value="{{customer.name}}" readonly></td>
+                    <th scope="col">Name</th>
+                    <td scope="row"><input class="form-control" type="text" name="name" Value="{{customer.name}}" readonly></td>
                 </tr>
                 <tr>
-                    <th>Weekly Pickup Day</th>
-                    <td><input type="text" name="weekly_pickup_day" Value="{{customer.weekly_pickup_day}}"></td>
+                    <th scope="col">Weekly Pickup Day</th>
+                    <td scope="row"><input class="form-control" type="text" name="weekly_pickup_day" Value="{{customer.weekly_pickup_day}}"></td>
                 </tr>
                 <tr>
-                    <th>Single Pickup Date</th>
-                    <td><input type="date" name="onetime_pickup_date"></td>
+                    <th scope="col">Single Pickup Date</th>
+                    <td scope="row"><input class="form-control" type="date" name="onetime_pickup_date"></td>
                 </tr>
             </table>
-            <input type="submit" value="Submit">
+            <input class="form-control" type="submit" value="Submit">
         </form>
 {% endblock %}

@@ -8,30 +8,32 @@
 {% block content %}
         <form action="{%url 'customers:customer_account_info' %}" method="POST">
             {% csrf_token %}
-            <table>
+            <table class="table table-borderless table-hover">
                 <tr>
-                    <th>Name</th>
-                    <td><input type="text" name="name" Value="{{customer.name}}" ></td>
+                    <th scope="col">Name</th>
+                    <td scope="row"><input class="form-control" type="text" name="name" Value="{{customer.name}}" ></td>
                 </tr>
                 <tr>
-                    <th>Address</th>
-                    <td><input type="text" name="customer_address" Value="{{customer.customer_address}}" ></td>
+                    <th scope="col">Address</th>
+                    <td scope="row"><input class="form-control" type="text" name="customer_address" Value="{{customer.customer_address}}" ></td>
                 </tr>
                  <tr>
-                    <th>Customer Zipcode</th>
-                    <td><input type="text" name="customer_zip_code" Value="{{customer.customer_zip_code}}"></td>
-                </tr>
-                    <th>Balance</th>
-                    <td><input type="text" name="customer_balance" Value="{{customer.customer_balance}}" readonly></td>
-                 <tr>
-                    <th>Suspend pickups</th>
-                    <td><input type="date" name="start_suspension_date" Value="{{customer.start_suspension_date}}" ></td>
+                    <th scope="col">Customer Zipcode</th>
+                    <td scope="row"><input class="form-control" type="text" name="customer_zip_code" Value="{{customer.customer_zip_code}}"></td>
                 </tr>
                 <tr>
-                    <th>End Suspension</th>
-                    <td><input type="date" name="end_suspension_date" Value="{{customer.end_suspension_date}}"></td>
+                    <th scope="col">Balance</th>
+                    <td scope="row"><input class="form-control" type="text" name="customer_balance" Value="{{customer.customer_balance}}" readonly></td>
+                </tr>
+                 <tr>
+                    <th scope="col">Suspend pickups</th>
+                    <td scope="row"><input class="form-control" type="date" name="start_suspension_date" Value="{{customer.start_suspension_date}}" ></td>
+                </tr>
+                <tr>
+                    <th scope="col">End Suspension</th>
+                    <td scope="row"><input class="form-control" type="date" name="end_suspension_date" Value="{{customer.end_suspension_date}}"></td>
                 </tr>
             </table>
-            <input type="submit" value="Submit">
+                <input class="form-control" type="submit" value="Submit">
         </form>
 {% endblock %}
