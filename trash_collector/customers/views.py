@@ -29,7 +29,7 @@ def customer_signup(request):
         new_customer = Customer(name=customer_name, customer_address=customer_address, customer_zip_code=customer_zip_code, weekly_pickup_day=customer_weekly_pickup_day, user=request.user)
         new_customer.save()
 
-        return HttpResponseRedirect(reverse('customers:customer_signup'))
+        return redirect('/customers/')
     else:
         return render(request, 'customers/customer_signup_information.html')
 
@@ -42,22 +42,21 @@ def customer_account_info(request):
         form.save()
         return redirect('/customers/')
     context = {
-        'form': form
+        'form': form,
+        'customer': customer
     }
     return render(request, "customers/account_info.html", context)
 
 
-def change_pickup_day(request, customer_id):
-    customer = Customer.objects.get(pk=customer_id)
+def change_pickup_day(request):
+    user = request.user
+    customer = Customer.objects.get(user_id=user.id)
     form = change_pickup_form(request.POST, instance=customer)
     if form.is_valid():
-        form.save(customer)
+        form.save()
         return redirect('/customers/')
     context = {
-        'form': form
+        'form': form,
+        'customer': customer
     }
     return render(request, "customers/customer_change_pickup_day.html", context)
-
-def suspend_account(request, customer_id):
-    pass
-

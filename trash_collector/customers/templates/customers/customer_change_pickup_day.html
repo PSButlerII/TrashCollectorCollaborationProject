@@ -1,29 +1,25 @@
 {% extends 'base.html' %}
 {# This top line allows this template to utilizing the styling and layout from the base. All your templates should do the same. #}
 
-{% block title %} Customer Signup {% endblock %}
+{% block title %} Change Pickup Day {% endblock %}
 
-{% block header %} Customer Signup {% endblock %}
+{% block header %} Change Pickup Day {% endblock %}
 
 {% block content %}
-        <form action="{%url 'customers:change_pickup_day' }" method="POST">
+        <form action="{%url 'customers:change_pickup_day' %}" method="POST">
             {% csrf_token %}
             <table>
                 <tr>
                     <th>Name</th>
-                    <td><input type="text" name="name" Value="{{name}}" readonly></td>
+                    <td><input type="text" name="name" Value="{{customer.name}}" readonly></td>
                 </tr>
                 <tr>
-                    <th>Address</th>
-                    <td><input type="text" name="customer_address" Value="{{customer_address}}" readonly></td>
+                    <th>Weekly Pickup Day</th>
+                    <td><input type="text" name="weekly_pickup_day" Value="{{customer.weekly_pickup_day}}"></td>
                 </tr>
-                 <tr>
-                    <th>Customer Zipcode</th>
-                    <td><input type="text" name="customer_zip_code" Value="{{customer_zip_code}}" readonly></td>
-                </tr>
-                 <tr>
-                    <th>Weekly Pickup Date</th>
-                    <td><input type="text" name="weekly_pickup_day" Value="{{weekly_pickup_day}}"></td>
+                <tr>
+                    <th>Single Pickup Date</th>
+                    <td><input type="date" name="onetime_pickup_date"></td>
                 </tr>
             </table>
             <input type="submit" value="Submit">

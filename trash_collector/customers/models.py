@@ -1,7 +1,7 @@
 from django.db import models
+# Create your models here.
 
-
-#TODO: Finish customer model by adding necessary properties to fulfill user stories
+# TODO: Finish customer model by adding necessary properties to fulfill user stories
 
 
 class Customer(models.Model):
@@ -14,11 +14,6 @@ class Customer(models.Model):
     customer_balance = models.IntegerField(default=0)
     customer_address = models.CharField(max_length=50)
     customer_zip_code = models.CharField(max_length=50)
-    weekly_pickup_confirmed = models.BooleanField(default=True)
-    suspension = models.BooleanField(default=False)
-
-
-
-
-
+    weekly_pickup_confirmed = True
+    suspension = False
 
