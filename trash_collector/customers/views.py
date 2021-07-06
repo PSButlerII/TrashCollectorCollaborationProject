@@ -1,13 +1,8 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from .models import Customer
-from .forms import customer_forms, change_pickup_form
+from .forms import customer_forms, change_pickup_form, OneTimePick, AccountSuspension, account_info, suspend_customer_account
 from django.urls import reverse
-
-
-# Create your views here.
-
-# TODO: Create a function for each path created in customers/urls.py. Each will need a template as well.
 
 
 def index(request):
