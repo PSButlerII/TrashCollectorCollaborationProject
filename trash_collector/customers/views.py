@@ -60,8 +60,9 @@ def customer_account_info(request):
 
 def change_pickup_day(request):
     user = request.user
-    customer = Customer.objects.filter(user_id=user.id)
-    if not customer.exists():
+
+    customer = Customer.objects.filter(user_id=user.id).first()
+    if customer is None:
         return redirect("/customers/customer")
     customer_info = Customer.objects.get(user_id=user.id)
     form = change_pickup_form(request.POST, instance=customer)
@@ -70,6 +71,6 @@ def change_pickup_day(request):
         return redirect('/customers/')
     context = {
         'form': form,
-        'customer': customer_info
+        'customer': customer
     }
-    return render(request, "customers/customer_change_pickup_day.html", context)
+    return render(request, "customers/change_pickup_day.html", context)
