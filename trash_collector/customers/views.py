@@ -60,7 +60,6 @@ def customer_account_info(request):
 
 def change_pickup_day(request):
     user = request.user
-
     customer = Customer.objects.filter(user_id=user.id).first()
     if customer is None:
         return redirect("/customers/customer")

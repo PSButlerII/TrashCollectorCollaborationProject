@@ -36,13 +36,13 @@
             <a class="nav-link" href="/employees/">Home <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'customers:customer_account_info' %}">Account Info</a>
+            <a class="nav-link" href="{% url 'employees:employee_account_info' %}">Account Info</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'customers:change_pickup_day' %}">Change Pickup Day</a>
+            <a class="nav-link" href="{% url 'employees:todays_pickups' %}">Pickups for Today</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'customers:customer_signup' %}">Customer Registration</a>
+            <a class="nav-link" href="{% url 'employees:employee_signup' %}">Employee Registration</a>
           </li>
         </ul>
     </nav>
