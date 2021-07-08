@@ -20,7 +20,8 @@ def detail(request, user_id):
             form.save()
             return HttpResponseRedirect(reverse('customers:index'))
     context = {'form': form, 'customer': customer}
-    return render(request, 'customers/detail.html', context)
+    return render(request,
+                  'customers/detail.html', context)
 
 
 # allows user to sign up for account
@@ -32,7 +33,8 @@ def registration(request):
             form.save()
             return HttpResponseRedirect(reverse('customers:index'))
     context = {'form': form}
-    return render(request, "customers/registration.html", context)
+    return render(request,
+                  "customers/registration.html", context)
 
 
 def change(request, user_id):
@@ -43,7 +45,8 @@ def change(request, user_id):
         if form.is_valid():
             form.save()
             return HttpResponseRedirect(reverse('customers:index'))
-    context = {'form': form, 'customer': customer}
+    context = {'form': form,
+               'customer': customer}
     return render(request, 'customers/change.html', context)
 
 
@@ -55,7 +58,8 @@ def pickup(request, user_id):
         if form.is_valid():
             form.save()
             return HttpResponseRedirect(reverse('customers:index'))
-    context = {'form': form, 'customer': customer}
+    context = {'form': form,
+               'customer': customer}
     return render(request, 'customers/pickup.html', context)
 
 
@@ -71,7 +75,8 @@ def suspension(request, user_id):
         if form.is_valid():
             form.save()
             return HttpResponseRedirect(reverse('customers:index'))
-    context = {'form': form, 'customer': customer}
+    context = {'form': form,
+               'customer': customer}
     return render(request, 'customers/suspension.html', context)
 
 
