@@ -2,22 +2,24 @@ from django.forms import ModelForm
 from .models import Customer
 
 
-
-class customer_forms(ModelForm):
+class CustomerDetails(ModelForm):
     class Meta:
         model = Customer
-        fields = ('name', 'customer_address', 'customer_zip_code', 'start_suspension_date', 'end_suspension_date',)
+        fields = '__all__'
 
 
-
-class change_pickup_form(ModelForm):
+class NewServiceForm(ModelForm):
     class Meta:
         model = Customer
-        fields = ('name', 'weekly_pickup_day', 'onetime_pickup_date',)
-        pass
+        fields = {"name",
+                  "user",
+                  "address",
+                  "zip_code",
+                  "start_pickup_day",
+                  "weekly_pickup_day"}
 
 
-class OneTimePick(ModelForm):
+class OneTimePickup(ModelForm):
     class Meta:
         model = Customer
         fields = {"name",
@@ -34,14 +36,6 @@ class AccountSuspension(ModelForm):
                   "zip_code",
                   "start_suspension",
                   "end_suspension"}
-
-
-
-class account_info(ModelForm):
-    class Meta:
-        model = Customer
-        pass
-
 
 
 

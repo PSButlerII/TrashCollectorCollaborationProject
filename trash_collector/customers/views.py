@@ -1,8 +1,8 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
-from .models import Customer
-from .forms import customer_forms, change_pickup_form, OneTimePick, AccountSuspension, account_info, suspend_customer_account
 from django.urls import reverse
+from .forms import NewServiceForm, OneTimePickup, AccountSuspension, CustomerDetails
+from .models import Customer
 
 
 def index(request):
@@ -11,56 +11,73 @@ def index(request):
     return render(request, 'customers/index.html')
 
 
-def customer_signup(request):
+def detail(request, user_id):
+    customer = Customer.objects.get(user_id=user_id)
+    form = CustomerDetails(instance=customer)
     if request.method == 'POST':
-        customer_name = request.POST.get('name')
-        customer_address = request.POST.get('customer_address')
-        customer_zip_code = request.POST.get('customer_zip_code')
-        customer_weekly_pickup_day = request.POST.get('weekly_pickup_day')
-        new_customer = Customer(name=customer_name, customer_address=customer_address, customer_zip_code=customer_zip_code, weekly_pickup_day=customer_weekly_pickup_day, user=request.user)
-        new_customer.save()
-
-        return redirect('/customers/')
-    else:
-        return render(request, 'customers/customer_signup.html')
+        form = CustomerDetails(request.POST or None, instance=customer)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('customers:index'))
+    context = {'form': form, 'customer': customer}
+    return render(request, 'customers/detail.html', context)
 
 
-def customer_validation(request):
-    user = request.user
-    customer = Customer.objects.filter(user_id=user.id)
+# allows user to sign up for account
+def registration(request):
+    form = NewServiceForm()
+    if request.method == 'POST':
+        form = NewServiceForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('customers:index'))
+    context = {'form': form}
+    return render(request, "customers/registration.html", context)
+
+
+def change(request, user_id):
+    customer = Customer.objects.get(user_id=user_id)
+    form = NewServiceForm(instance=customer)
+    if request.method == 'POST':
+        form = NewServiceForm(request.POST or None, instance=customer)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('customers:index'))
+    context = {'form': form, 'customer': customer}
+    return render(request, 'customers/change.html', context)
+
+
+def pickup(request, user_id):
+    customer = Customer.objects.get(user_id=user_id)
+    form = OneTimePickup(instance=customer)
+    if request.method == 'POST':
+        form = OneTimePickup(request.POST or None, instance=customer)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('customers:index'))
+    context = {'form': form, 'customer': customer}
+    return render(request, 'customers/pickup.html', context)
+
+
+def suspension(request, user_id):
+    customer = Customer.objects.get(user_id=user_id)
+    form = AccountSuspension(instance=customer)
+    if request.method == 'POST':
+        if Customer.start_suspension(user_id=user_id, null=True):
+            Customer.weekly_pickup_day(user_id=user_id, null=False)
+        if Customer.start_suspension(user_id=user_id, null=False):
+            Customer.weekly_pickup_day(user_id=user_id, null=True)
+        form = AccountSuspension(request.POST or None, instance=customer)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('customers:index'))
+    context = {'form': form, 'customer': customer}
+    return render(request, 'customers/suspension.html', context)
+
+
+def statement(request, user_id):
+    customer = Customer.objects.get(user_id=user_id)
     context = {
-        'customer': customer,
-        'user': user
-    }
-    return render(request, "customers/base.html", context)
-
-
-def customer_account_info(request):
-    user = request.user
-    customer = Customer.objects.get(user_id=user.id)
-    form = customer_forms(request.POST, instance=customer)
-    if form.is_valid():
-        form.save()
-        return redirect('/customers/')
-    context = {
-        'form': form,
         'customer': customer
     }
-    return render(request, "customers/account_info.html", context)
-
-
-def change_pickup_day(request):
-    user = request.user
-    customer = Customer.objects.filter(user_id=user.id).first()
-    if customer is None:
-        return redirect("/customers/customer")
-    customer_info = Customer.objects.get(user_id=user.id)
-    form = change_pickup_form(request.POST, instance=customer)
-    if form.is_valid():
-        form.save()
-        return redirect('/customers/')
-    context = {
-        'form': form,
-        'customer': customer
-    }
-    return render(request, "customers/change_pickup_day.html", context)
+    return render(request, 'customers/statement.html', context)
