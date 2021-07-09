@@ -1,7 +1,7 @@
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Customer
-from .forms import customer_forms, change_pickup_form, OneTimePick, AccountSuspension, account_info, suspend_customer_account
+from .forms import customer_forms, change_pickup_form
 from django.urls import reverse
 
 

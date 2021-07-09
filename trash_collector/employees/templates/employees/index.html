@@ -5,16 +5,35 @@
 {% block content %}
   {% if user.is_authenticated %}
     Hello Employee {{ user.username }} !
-    <p>
-      {% for customer in customer_for_today %}
-        <h1>{{customer.name}}
-             {{customer.onetime_pickup_date}}
-        </h1>
-      {% endfor %}
-    </p>
-  {% else %}
+{% else %}
     <p>You are at the employee index, but you are not logged in.</p>
     <a href="{% url 'login' %}">Log In</a>
     <a href="{% url 'accounts:register' %}">Sign Up</a>
   {% endif %}
+    <p>
+
+        <table border ="1">
+          <tr>
+
+            <th>Customer Name</th>
+            <th>Customer Zip Code</th>
+            <th>Customer onetime pick up</th>
+              <th>Suspension Date</th>
+              <th>Suspension End</th>
+            <th>Customer Status</th>
+          </tr>
+            {% for customer in customer_for_today %}
+          <tr>
+            <td>{{customer.name}}</td>
+            <td>{{customer.customer_zip_code}}</td>
+            <td>{{customer.onetime_pickup_date}}</td>
+            <td>{{customer.start_suspension_date}}</td>
+              <td>{{customer.end_suspension_date}}</td>
+            <td>{{start}}</td>
+          </tr>
+        </table>
+
+      {% endfor %}
+    </p>
+
 {% endblock %}
