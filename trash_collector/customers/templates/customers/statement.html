@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %} View Your Statement {% endblock %}
+
+{% block header %} View Your Statement {% endblock %}
+
+{% block content %}
+  <body>
+    {% if customer %}
+    <h1>{{customer.name}}</h1>
+    <h2>{{customer.address}}</h2>
+    <h2>Amount due is ${{customer.balance}}</h2>
+    {% endif %}
+
+  </body>
+{% endblock %}
